@@ -1,13 +1,13 @@
+#Compute the modular inverse of k modulo p.
 def inverse_mod(k, p):
-    """Compute the modular inverse of k modulo p."""
     return pow(k, -1, p)
 
+#Check if the point lies on the curve.
 def is_on_curve(x, y, a, b, p):
-    """Check if the point lies on the curve."""
     return (y**2 - (x**3 + a*x + b)) % p == 0
 
+#Function for point addition
 def point_add(P, Q, a, p):
-    """Add two points on the elliptic curve."""
     if P is None: return Q
     if Q is None: return P
     if P == Q:
@@ -24,8 +24,8 @@ def point_add(P, Q, a, p):
     ry = (m * (P[0] - rx) - P[1]) % p
     return (rx, ry)
 
+#Function for scaler multiplication
 def scalar_mult(k, P, a, p):
-    """Multiply point P by scalar k on curve with 'a' coefficient and modulus 'p'."""
     result = None
     while k:
         if k & 1:
@@ -34,20 +34,16 @@ def scalar_mult(k, P, a, p):
         k >>= 1
     return result
 
-# Helper functions to convert between letters and numbers
-def char_to_num(c):
-    return ord(c) - ord('A')
 
-def num_to_char(n):
-    return chr(n + ord('A'))
-
-# ----------- Input Section -----------
+#Input Section
 print("Elliptic Curve: y² = x³ + ax + b over field modulo p")
 
+#1.Input for the Elliptic curve
 a = int(input("Enter coefficient a: "))
 b = int(input("Enter coefficient b: "))
 p = int(input("Enter prime modulus p: "))
 
+#2.Input for the Generator point
 gx = int(input("Enter base point G's x-coordinate: "))
 gy = int(input("Enter base point G's y-coordinate: "))
 G = (gx, gy)
@@ -56,6 +52,7 @@ if not is_on_curve(gx, gy, a, b, p):
     print("Error: G is not on the curve!")
     exit()
 
+#3.Input for the private key
 private_key_A = int(input("Enter sender's private key (A): "))
 private_key_B = int(input("Enter receiver's private key (B): "))
 
